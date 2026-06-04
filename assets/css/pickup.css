@@ -1,0 +1,308 @@
+/* =============================================
+   PICKUP.CSS — Schedule Page
+   Canteen Takeaway System
+   ============================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500&display=swap');
+
+:root {
+    --primary:        #f97316;
+    --primary-light:  #fff7ed;
+    --primary-glow:   rgba(249,115,22,0.15);
+    --primary-dark:   #ea6c0a;
+
+    --surface:        #ffffff;
+    --bg:             #f4f5f7;
+
+    --text-main:      #1a1d23;
+    --text-muted:     #777e8e;
+    --text-light:     #adb5bd;
+
+    --border:         #e8eaed;
+    --border-soft:    #f0f1f3;
+
+    --shadow-sm:      0 2px 8px  rgba(0,0,0,0.05);
+    --shadow-md:      0 8px 28px rgba(0,0,0,0.08);
+    --shadow-lg:      0 20px 48px rgba(0,0,0,0.10);
+
+    --radius-sm:  8px;
+    --radius-md:  14px;
+    --radius-lg:  20px;
+    --radius-xl:  26px;
+
+    --transition: 0.22s cubic-bezier(0.4,0,0.2,1);
+
+    /* status colours */
+    --s-pending-bg:   #fffbeb; --s-pending:   #f59e0b;
+    --s-confirmed-bg: #eff6ff; --s-confirmed: #3b82f6;
+    --s-ready-bg:     #f5f3ff; --s-ready:     #8b5cf6;
+    --s-completed-bg: #f0fdf4; --s-completed: #22c55e;
+    --s-cancelled-bg: #fef2f2; --s-cancelled: #ef4444;
+}
+
+/* ---------- CONTAINER ---------- */
+.container {
+    font-family: 'Sora', sans-serif;
+    padding: 32px 36px;
+    flex: 1;
+    overflow-y: auto;
+    background: var(--bg);
+    animation: fadeUp 0.38s ease both;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ---------- PAGE HEADING ---------- */
+.container h2 {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 28px;
+    letter-spacing: -0.4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.container h2::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 28px;
+    background: var(--primary);
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+/* ---------- GRID ---------- */
+.orders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+/* ---------- EMPTY STATE ---------- */
+.empty-orders {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 70px 40px;
+    background: var(--surface);
+    border-radius: var(--radius-xl);
+    border: 1.5px dashed var(--border);
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text-muted);
+}
+
+.empty-orders svg {
+    width: 54px;
+    height: 54px;
+    color: var(--text-light);
+    margin-bottom: 6px;
+}
+
+.empty-orders strong {
+    font-family: 'Sora', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.empty-orders span {
+    font-size: 14px;
+    color: var(--text-muted);
+    max-width: 320px;
+}
+
+.empty-cta {
+    margin-top: 10px;
+    display: inline-block;
+    background: var(--primary);
+    color: #fff;
+    font-family: 'Sora', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 11px 28px;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    box-shadow: 0 8px 20px rgba(249,115,22,0.28);
+    transition: background var(--transition), transform var(--transition);
+}
+
+.empty-cta:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+/* ---------- ORDER CARD ---------- */
+.order-card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    border: 1.5px solid var(--border-soft);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+    animation: fadeUp 0.4s ease both;
+}
+
+.order-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: #f5dcc4;
+}
+
+/* ---------- CARD HEADER ---------- */
+.order-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    background: #fafbfc;
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.order-id {
+    font-family: 'Sora', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+}
+
+.order-id span { color: var(--primary); }
+
+/* ---------- STATUS BADGE ---------- */
+.order-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    text-transform: capitalize;
+}
+
+.order-status::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    display: block;
+    flex-shrink: 0;
+}
+
+.order-status.pending   { background: var(--s-pending-bg);   color: var(--s-pending);   }
+.order-status.pending::before   { background: var(--s-pending);   }
+.order-status.confirmed { background: var(--s-confirmed-bg); color: var(--s-confirmed); }
+.order-status.confirmed::before { background: var(--s-confirmed); }
+.order-status.ready     { background: var(--s-ready-bg);     color: var(--s-ready);     }
+.order-status.ready::before     { background: var(--s-ready);     }
+.order-status.completed { background: var(--s-completed-bg); color: var(--s-completed); }
+.order-status.completed::before { background: var(--s-completed); }
+.order-status.cancelled { background: var(--s-cancelled-bg); color: var(--s-cancelled); }
+.order-status.cancelled::before { background: var(--s-cancelled); }
+
+/* ---------- CARD BODY ---------- */
+.order-card-body {
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex: 1;
+}
+
+.order-detail-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.order-detail-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+}
+
+.order-detail-value {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text-main);
+    font-weight: 500;
+    text-align: right;
+}
+
+/* ---------- SLOT CHIP ---------- */
+.slot-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #eff6ff;
+    color: #3b82f6;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 5px 11px;
+    border-radius: var(--radius-sm);
+}
+
+.slot-chip svg {
+    width: 14px; height: 14px;
+    flex-shrink: 0;
+}
+
+/* ---------- CARD FOOTER ---------- */
+.order-card-footer {
+    padding: 14px 20px;
+    border-top: 1px solid var(--border-soft);
+    background: var(--primary-light);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.order-total-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--primary-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.order-total-amount {
+    font-family: 'Sora', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: -0.3px;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 900px) {
+    .orders-grid {
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .container { padding: 20px 16px; }
+    .orders-grid { grid-template-columns: 1fr; }
+}

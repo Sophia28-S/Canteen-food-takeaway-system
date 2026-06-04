@@ -1,0 +1,440 @@
+/* =============================================
+   ORDERS / SCHEDULE PAGE STYLES
+   Canteen Takeaway System
+   Card-based | Matches dashboard colors
+   ============================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap');
+
+/* ---------- ROOT VARIABLES ---------- */
+:root {
+    --primary:        #f97316;
+    --primary-light:  #fff7ed;
+    --primary-glow:   rgba(249, 115, 22, 0.15);
+    --primary-dark:   #ea6c0a;
+
+    --bg:             #f4f5f7;
+    --surface:        #ffffff;
+
+    --text-main:      #1a1d23;
+    --text-muted:     #777e8e;
+    --text-light:     #adb5bd;
+
+    --border:         #e8eaed;
+    --border-soft:    #f0f1f3;
+
+    --shadow-sm:      0 2px 8px  rgba(0,0,0,0.06);
+    --shadow-md:      0 8px 24px rgba(0,0,0,0.08);
+    --shadow-lg:      0 16px 40px rgba(0,0,0,0.10);
+
+    --radius-sm:      8px;
+    --radius-md:      14px;
+    --radius-lg:      20px;
+
+    --transition:     0.22s cubic-bezier(0.4,0,0.2,1);
+
+    /* status palette */
+    --s-pending:      #f59e0b;
+    --s-pending-bg:   #fffbeb;
+    --s-confirmed:    #3b82f6;
+    --s-confirmed-bg: #eff6ff;
+    --s-ready:        #8b5cf6;
+    --s-ready-bg:     #f5f3ff;
+    --s-completed:    #22c55e;
+    --s-completed-bg: #f0fdf4;
+    --s-cancelled:    #ef4444;
+    --s-cancelled-bg: #fef2f2;
+
+    /* type palette */
+    --t-now:          #f97316;
+    --t-now-bg:       #fff7ed;
+    --t-scheduled:    #3b82f6;
+    --t-scheduled-bg: #eff6ff;
+}
+
+/* ---------- CONTAINER ---------- */
+.container {
+    font-family: 'Sora', sans-serif;
+    padding: 32px 36px;
+    animation: fadeUp 0.4s ease both;
+}
+
+@keyframes fadeUp {
+    from { opacity:0; transform:translateY(18px); }
+    to   { opacity:1; transform:translateY(0);    }
+}
+
+/* ---------- PAGE HEADING ---------- */
+.container h2 {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 28px;
+    letter-spacing: -0.4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.container h2::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 28px;
+    background: var(--primary);
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+/* =============================================
+   HIDE THE DEFAULT TABLE COMPLETELY
+   ============================================= */
+table {
+    display: none !important;
+}
+
+/* =============================================
+   ORDER CARDS GRID
+   Add class="orders-grid" to a wrapper <div>
+   wrapping all order rows, OR use the
+   approach below targeting the table's parent.
+   Since the HTML has no wrapper div, we style
+   .container directly as the grid host and
+   use PHP-generated .order-card divs.
+
+   ⚠️  In your PHP replace <table>…</table> with:
+
+   <div class="orders-grid">
+     <?php foreach($orders as $row): ?>
+     <div class="order-card">
+       <!-- fields below -->
+     </div>
+     <?php endforeach; ?>
+   </div>
+
+   See the full replacement snippet at the bottom
+   of this file in the comment block.
+   ============================================= */
+
+.orders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+/* ---------- SINGLE ORDER CARD ---------- */
+.order-card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    border: 1.5px solid var(--border-soft);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+    animation: fadeUp 0.4s ease both;
+}
+
+.order-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: #f5dcc4;
+}
+
+/* stagger */
+.order-card:nth-child(1) { animation-delay:.04s }
+.order-card:nth-child(2) { animation-delay:.08s }
+.order-card:nth-child(3) { animation-delay:.12s }
+.order-card:nth-child(4) { animation-delay:.16s }
+.order-card:nth-child(5) { animation-delay:.20s }
+.order-card:nth-child(6) { animation-delay:.24s }
+
+/* ---------- CARD HEADER ---------- */
+.order-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px 14px;
+    border-bottom: 1px solid var(--border-soft);
+    background: #fafbfc;
+}
+
+.order-id {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.order-id span {
+    color: var(--primary);
+}
+
+/* ---------- STATUS BADGE ---------- */
+.order-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    text-transform: capitalize;
+}
+
+.order-status::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    display: block;
+    flex-shrink: 0;
+}
+
+.order-status.pending    { background: var(--s-pending-bg);   color: var(--s-pending);   }
+.order-status.pending::before    { background: var(--s-pending);   }
+
+.order-status.confirmed  { background: var(--s-confirmed-bg); color: var(--s-confirmed); }
+.order-status.confirmed::before  { background: var(--s-confirmed); }
+
+.order-status.ready      { background: var(--s-ready-bg);     color: var(--s-ready);     }
+.order-status.ready::before      { background: var(--s-ready);     }
+
+.order-status.completed  { background: var(--s-completed-bg); color: var(--s-completed); }
+.order-status.completed-before   { background: var(--s-completed); }
+.order-status.completed::before  { background: var(--s-completed); }
+
+.order-status.cancelled  { background: var(--s-cancelled-bg); color: var(--s-cancelled); }
+.order-status.cancelled::before  { background: var(--s-cancelled); }
+
+/* ---------- CARD BODY ---------- */
+.order-card-body {
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+}
+
+/* each info row */
+.order-detail-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.order-detail-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12.5px;
+    color: var(--text-light);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+}
+
+.order-detail-value {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text-main);
+    font-weight: 500;
+    text-align: right;
+}
+
+/* ---------- ORDER TYPE BADGE ---------- */
+.order-type-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.order-type-badge.now       { background: var(--t-now-bg);       color: var(--t-now);       }
+.order-type-badge.scheduled { background: var(--t-scheduled-bg); color: var(--t-scheduled); }
+
+/* ---------- CARD FOOTER (total) ---------- */
+.order-card-footer {
+    padding: 14px 20px;
+    border-top: 1px solid var(--border-soft);
+    background: var(--primary-light);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.order-total-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12.5px;
+    color: var(--primary-dark);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.order-total-amount {
+    font-family: 'Sora', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: -0.3px;
+}
+
+/* ---------- SLOT TIME CHIP ---------- */
+.slot-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #eff6ff;
+    color: #3b82f6;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 8px;
+}
+
+.slot-chip svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+}
+
+/* ---------- EMPTY STATE ---------- */
+.empty-orders {
+    text-align: center;
+    padding: 60px 30px;
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    border: 1.5px dashed var(--border);
+    color: var(--text-muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+}
+
+.empty-orders svg {
+    width: 52px;
+    height: 52px;
+    color: var(--text-light);
+    margin-bottom: 14px;
+    display: block;
+    margin-inline: auto;
+}
+
+.empty-orders strong {
+    display: block;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 6px;
+    font-family: 'Sora', sans-serif;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 900px) {
+    .orders-grid {
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .container { padding: 20px 16px; }
+    .orders-grid { grid-template-columns: 1fr; }
+}
+
+
+/*
+=================================================================
+  PHP REPLACEMENT SNIPPET — copy into schedule.php & order_history.php
+  Replace the entire <table>…</table> block with this:
+=================================================================
+
+---- schedule.php ----
+
+<div class="orders-grid">
+<?php if(empty($orders)): ?>
+<div class="empty-orders">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
+  <strong>No scheduled orders yet</strong>
+  Your upcoming pickup slots will appear here.
+</div>
+<?php else: ?>
+<?php foreach($orders as $row): ?>
+<div class="order-card">
+
+  <div class="order-card-header">
+    <div class="order-id">Order <span>#<?= $row['order_id'] ?></span></div>
+    <div class="order-status <?= strtolower($row['status']) ?>"><?= ucfirst($row['status']) ?></div>
+  </div>
+
+  <div class="order-card-body">
+    <div class="order-detail-row">
+      <span class="order-detail-label">Pickup Slot</span>
+      <div class="slot-chip">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <?= $row['start_time'] ?> – <?= $row['end_time'] ?>
+      </div>
+    </div>
+    <div class="order-detail-row">
+      <span class="order-detail-label">Placed On</span>
+      <span class="order-detail-value"><?= date('d M Y, h:i A', strtotime($row['created_at'])) ?></span>
+    </div>
+  </div>
+
+  <div class="order-card-footer">
+    <span class="order-total-label">Total</span>
+    <span class="order-total-amount">₹<?= number_format($row['total_amount'], 2) ?></span>
+  </div>
+
+</div>
+<?php endforeach; ?>
+<?php endif; ?>
+</div>
+
+
+---- order_history.php ----
+
+<div class="orders-grid">
+<?php if(empty($orders)): ?>
+<div class="empty-orders">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V19.5a2.25 2.25 0 002.25 2.25h.75"/></svg>
+  <strong>No orders yet</strong>
+  Start ordering from the menu and your history will show up here.
+</div>
+<?php else: ?>
+<?php foreach($orders as $row): ?>
+<div class="order-card">
+
+  <div class="order-card-header">
+    <div class="order-id">Order <span>#<?= $row['order_id'] ?></span></div>
+    <div class="order-status <?= strtolower($row['status']) ?>"><?= ucfirst($row['status']) ?></div>
+  </div>
+
+  <div class="order-card-body">
+    <div class="order-detail-row">
+      <span class="order-detail-label">Type</span>
+      <span class="order-type-badge <?= $row['order_type'] ?>"><?= ucfirst($row['order_type']) ?></span>
+    </div>
+    <div class="order-detail-row">
+      <span class="order-detail-label">Date</span>
+      <span class="order-detail-value"><?= date('d M Y, h:i A', strtotime($row['created_at'])) ?></span>
+    </div>
+  </div>
+
+  <div class="order-card-footer">
+    <span class="order-total-label">Total</span>
+    <span class="order-total-amount">₹<?= number_format($row['total_amount'], 2) ?></span>
+  </div>
+
+</div>
+<?php endforeach; ?>
+<?php endif; ?>
+</div>
+
+=================================================================
+*/

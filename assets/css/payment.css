@@ -1,0 +1,391 @@
+/* =============================================
+   PAYMENT.CSS — Canteen Takeaway System
+   Cash + Online QR payment page
+   ============================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500&display=swap');
+
+:root {
+    --primary:        #f97316;
+    --primary-light:  #fff7ed;
+    --primary-glow:   rgba(249,115,22,0.15);
+    --primary-dark:   #ea6c0a;
+
+    --surface:        #ffffff;
+    --bg:             #f4f5f7;
+
+    --text-main:      #1a1d23;
+    --text-muted:     #777e8e;
+    --text-light:     #adb5bd;
+
+    --border:         #e8eaed;
+    --border-soft:    #f0f1f3;
+
+    --shadow-md:      0 8px 28px rgba(0,0,0,0.08);
+    --shadow-lg:      0 20px 50px rgba(0,0,0,0.11);
+    --shadow-orange:  0 8px 24px rgba(249,115,22,0.28);
+
+    --radius-sm:  8px;
+    --radius-md:  14px;
+    --radius-lg:  20px;
+    --radius-xl:  28px;
+
+    --transition: 0.22s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* =============================================
+   PAGE WRAPPER
+   ============================================= */
+.payment-page {
+    min-height: calc(100vh - 66px);
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    font-family: 'Sora', sans-serif;
+    animation: fadeUp 0.4s ease both;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* =============================================
+   CARD
+   ============================================= */
+.payment-card {
+    background: var(--surface);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    border: 1.5px solid var(--border-soft);
+    width: 100%;
+    max-width: 460px;
+    overflow: hidden;
+}
+
+/* =============================================
+   HEADER
+   ============================================= */
+.payment-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 28px 30px 24px;
+    background: linear-gradient(135deg, #1a1d23 0%, #2d3340 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+/* decorative orb */
+.payment-header::after {
+    content: '';
+    position: absolute;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    top: -60px; right: -40px;
+    background: rgba(249,115,22,0.12);
+    pointer-events: none;
+}
+
+.payment-header-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: rgba(249,115,22,0.18);
+    border: 1px solid rgba(249,115,22,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.payment-header-icon svg {
+    width: 24px;
+    height: 24px;
+    color: var(--primary);
+}
+
+.payment-header-text {
+    position: relative;
+    z-index: 1;
+}
+
+.payment-header-text h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 3px;
+    letter-spacing: -0.2px;
+}
+
+.payment-header-text p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13.5px;
+    color: rgba(255,255,255,0.5);
+    margin: 0;
+}
+
+/* =============================================
+   ORDER SUMMARY
+   ============================================= */
+.payment-summary {
+    padding: 24px 30px;
+    border-bottom: 1px solid var(--border-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.summary-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.summary-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.summary-value {
+    font-family: 'Sora', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+/* method badge */
+.method-badge {
+    font-family: 'Sora', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+    text-transform: capitalize;
+}
+
+.method-badge.cash {
+    background: #fef9c3;
+    color: #a16207;
+}
+
+.method-badge.online {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.summary-divider {
+    height: 1px;
+    background: var(--border-soft);
+    margin: 2px 0;
+}
+
+.summary-total .summary-label {
+    font-family: 'Sora', sans-serif;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.summary-amount {
+    font-family: 'Sora', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: -0.4px;
+}
+
+/* =============================================
+   CASH BLOCK
+   ============================================= */
+.cash-block {
+    padding: 24px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.cash-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text-main);
+    line-height: 1.5;
+}
+
+.cash-step-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--primary-light);
+    color: var(--primary);
+    font-family: 'Sora', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1.5px solid rgba(249,115,22,0.2);
+    margin-top: 1px;
+}
+
+.cash-step strong {
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+/* =============================================
+   QR BLOCK
+   ============================================= */
+.qr-block {
+    padding: 28px 30px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.qr-wrap {
+    width: 200px;
+    height: 200px;
+    border-radius: var(--radius-md);
+    border: 2px solid var(--border);
+    padding: 10px;
+    background: var(--surface);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* corner accents on QR */
+.qr-wrap::before,
+.qr-wrap::after {
+    content: '';
+    position: absolute;
+    width: 20px; height: 20px;
+    border-color: var(--primary);
+    border-style: solid;
+}
+
+.qr-wrap::before {
+    top: -2px; left: -2px;
+    border-width: 3px 0 0 3px;
+    border-radius: 4px 0 0 0;
+}
+
+.qr-wrap::after {
+    bottom: -2px; right: -2px;
+    border-width: 0 3px 3px 0;
+    border-radius: 0 0 4px 0;
+}
+
+.qr-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: var(--radius-sm);
+}
+
+.qr-hint {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: var(--text-muted);
+    text-align: center;
+    margin: 0;
+}
+
+/* UPI app pills */
+.upi-apps {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.upi-apps span {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+/* =============================================
+   CONFIRM BUTTON
+   ============================================= */
+.payment-form {
+    padding: 22px 30px 26px;
+}
+
+.confirm-btn {
+    font-family: 'Sora', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    background: var(--primary);
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 14px 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    box-shadow: var(--shadow-orange);
+    transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 0.1px;
+}
+
+.confirm-btn svg {
+    width: 18px; height: 18px;
+    flex-shrink: 0;
+}
+
+.confirm-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.confirm-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(249,115,22,0.38);
+}
+
+.confirm-btn:active {
+    transform: translateY(0);
+}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+@media (max-width: 500px) {
+    .payment-header  { padding: 22px 20px 20px; }
+    .payment-summary { padding: 20px; }
+    .cash-block      { padding: 20px; }
+    .qr-block        { padding: 22px 20px 20px; }
+    .payment-form    { padding: 18px 20px 22px; }
+    .qr-wrap         { width: 170px; height: 170px; }
+}

@@ -1,0 +1,224 @@
+/* =============================================
+   MAIN.CSS — Canteen Takeaway System
+   Global styles, Navbar, Base tokens
+   ============================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500&display=swap');
+
+/* =============================================
+   TOKENS
+   ============================================= */
+:root {
+    --primary:        #f97316;
+    --primary-light:  #fff7ed;
+    --primary-glow:   rgba(249, 115, 22, 0.15);
+    --primary-dark:   #ea6c0a;
+
+    --dark:           #1a1d23;
+    --light:          #f4f5f7;
+
+    --surface:        #ffffff;
+    --bg:             #f4f5f7;
+
+    --text-main:      #1a1d23;
+    --text-muted:     #777e8e;
+    --text-light:     #adb5bd;
+
+    --border:         #e8eaed;
+    --border-soft:    #f0f1f3;
+
+    --shadow-sm:      0 2px 8px  rgba(0,0,0,0.05);
+    --shadow-md:      0 8px 28px rgba(0,0,0,0.08);
+    --shadow-lg:      0 20px 48px rgba(0,0,0,0.10);
+    --shadow-orange:  0 8px 24px rgba(249,115,22,0.25);
+
+    --nav-height:     66px;
+
+    --radius-sm:  8px;
+    --radius-md:  14px;
+    --radius-lg:  20px;
+    --radius-xl:  26px;
+
+    --transition: 0.22s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* =============================================
+   RESET & BASE
+   ============================================= */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text-main);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+}
+
+a { text-decoration: none; }
+
+img { max-width: 100%; display: block; }
+
+/* =============================================
+   NAVBAR
+   ============================================= */
+.top-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: var(--nav-height);
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    border-bottom: 1px solid var(--border-soft);
+    box-shadow: 0 1px 16px rgba(0,0,0,0.06);
+}
+
+/* Logo */
+.logo {
+    font-family: 'Sora', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-main);
+    letter-spacing: -0.3px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.logo::before {
+    content: '';
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background: var(--primary);
+    border-radius: 9px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='2' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M12 8.25v-1.5m0 1.5c-1.355 0-2.697.056-4.024.166C6.845 8.51 6 9.473 6 10.608v2.513m6-4.871c1.355 0 2.697.056 4.024.166C17.155 8.51 18 9.473 18 10.608v2.513M15 21h3.75M15 21H9m6 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.375a1.125 1.125 0 00-1.125 1.125V21M9 21H5.25M9 21v-3.375c0-.621.504-1.125 1.125-1.125h.375c.621 0 1.125.504 1.125 1.125V21m0 0h6'/%3E%3C/svg%3E");
+    background-size: 18px;
+    background-repeat: no-repeat;
+    background-position: center;
+    flex-shrink: 0;
+    box-shadow: var(--shadow-orange);
+}
+
+/* Right side */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+/* Role chip */
+.role {
+    font-family: 'Sora', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    color: var(--primary);
+    background: var(--primary-light);
+    border: 1px solid rgba(249,115,22,0.2);
+    padding: 4px 11px;
+    border-radius: 20px;
+}
+
+/* User name */
+.user {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+/* Nav divider */
+.nav-right::before {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 22px;
+    background: var(--border);
+    order: 2;
+}
+
+.role  { order: 1; }
+.user  { order: 3; }
+
+/* Logout */
+.logout {
+    order: 4;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--text-muted);
+    padding: 7px 14px;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid var(--border);
+    transition: background var(--transition), color var(--transition), border-color var(--transition);
+}
+
+.logout:hover {
+    background: #fff0eb;
+    color: var(--primary);
+    border-color: rgba(249,115,22,0.3);
+}
+
+/* =============================================
+   GLOBAL BUTTON
+   ============================================= */
+.btn {
+    font-family: 'Sora', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    background: var(--primary);
+    color: #fff;
+    padding: 11px 22px;
+    border-radius: var(--radius-sm);
+    border: none;
+    cursor: pointer;
+    box-shadow: var(--shadow-orange);
+    transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 10px 26px rgba(249,115,22,0.35);
+}
+
+.btn:active { transform: translateY(0); }
+
+/* =============================================
+   GLOBAL CARD (used outside dashboard grid)
+   ============================================= */
+.card {
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    padding: 22px;
+    box-shadow: var(--shadow-md);
+    border: 1.5px solid var(--border-soft);
+}
+
+/* =============================================
+   UTILITY
+   ============================================= */
+.muted { color: var(--text-muted); }
+
+/* =============================================
+   RESPONSIVE NAVBAR
+   ============================================= */
+@media (max-width: 600px) {
+    .top-nav { padding: 0 16px; }
+    .user { display: none; }
+    .nav-right::before { display: none; }
+}

@@ -1,0 +1,212 @@
+/* =============================================
+   INDEX.CSS — Canteen Takeaway System
+   Unique Animated Grid · Glassmorphism Card
+   ============================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap');
+
+/* ---- RESET & VARS ---- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --primary: #f97316;
+    --primary-dark: #ea6c0a;
+    --surface: rgba(255, 255, 255, 0.96);
+    /* Slightly transparent for glass effect */
+    --text-main: #1a1d23;
+    --text-muted: #777e8e;
+    --radius-sm: 10px;
+    --radius-lg: 24px;
+    --transition: 0.2s ease;
+}
+
+/* =============================================
+   UNIQUE BACKGROUND (Animated Grid + Dark Void)
+   ============================================= */
+body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: #0f1117;
+
+    /* 1. Subtle Orange Grid, 2. Vertical Grid, 3. Deep space radial gradient */
+    background-image:
+        linear-gradient(rgba(249, 115, 22, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(249, 115, 22, 0.05) 1px, transparent 1px),
+        radial-gradient(circle at 50% 50%, #1a1d23 0%, #08090c 100%);
+    background-size: 48px 48px, 48px 48px, 100% 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+    overflow: hidden;
+
+    /* The infinite moving grid effect */
+    animation: gridPan 20s linear infinite;
+}
+
+@keyframes gridPan {
+    0% {
+        background-position: 0px 0px, 0px 0px, center center;
+    }
+
+    100% {
+        background-position: 48px 48px, 48px 48px, center center;
+    }
+}
+
+/* Floating Brand Orbs */
+body::before {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(249, 115, 22, 0.12) 0%, transparent 65%);
+    top: -150px;
+    left: -150px;
+    animation: orbFloat 12s ease-in-out infinite;
+    pointer-events: none;
+}
+
+body::after {
+    content: '';
+    position: absolute;
+    width: 450px;
+    height: 450px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(249, 115, 22, 0.08) 0%, transparent 65%);
+    bottom: -100px;
+    right: -100px;
+    animation: orbFloat 10s ease-in-out infinite reverse;
+    pointer-events: none;
+}
+
+@keyframes orbFloat {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(30px, -30px) scale(1.05);
+    }
+}
+
+/* =============================================
+   CENTERED AUTH BOX (Glassmorphism)
+   ============================================= */
+.auth-box {
+    position: relative;
+    z-index: 10;
+    background: var(--surface);
+    backdrop-filter: blur(12px);
+    /* Blurs the moving grid behind it */
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    padding: 48px 40px;
+    border-radius: var(--radius-lg);
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(249, 115, 22, 0.05);
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.auth-box h2 {
+    font-family: 'Sora', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 6px;
+    letter-spacing: -0.5px;
+}
+
+.auth-box .subtitle {
+    font-size: 15px;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+}
+
+/* =============================================
+   BUTTONS & LINKS
+   ============================================= */
+.auth-box a {
+    text-decoration: none;
+    display: block;
+}
+
+.auth-box button {
+    font-family: 'Sora', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    background: var(--primary);
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 14px 24px;
+    width: 100%;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(249, 115, 22, 0.3);
+    transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+.auth-box button:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(249, 115, 22, 0.4);
+}
+
+.auth-box button:active {
+    transform: translateY(0);
+}
+
+.switch {
+    margin-top: 24px;
+    font-size: 13.5px;
+    color: var(--text-muted);
+}
+
+.switch a {
+    display: inline;
+    color: var(--primary);
+    font-weight: 600;
+    transition: color var(--transition);
+}
+
+.switch a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .auth-box {
+        padding: 40px 24px;
+        margin: 0 20px;
+    }
+
+    .auth-box h2 {
+        font-size: 22px;
+    }
+}
